@@ -1,0 +1,7 @@
+README.md
+setup.py
+persian_datetime/__init__.py
+persian_datetime.egg-info/PKG-INFO
+persian_datetime.egg-info/SOURCES.txt
+persian_datetime.egg-info/dependency_links.txt
+persian_datetime.egg-info/top_level.txt
