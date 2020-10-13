@@ -38,6 +38,24 @@ class Jalali:
 			return f'{jy}{splitter}{jm:02d}{splitter}{jd:02d}'
 		return jy, jm, jd
 
+	def date_diff_to_str_persian(self):
+		"""
+		mohasebeye ekhtelafe zamanie hal ba datetime_value va khorooji ba matne farsi
+		:return:
+		"""
+		delta = datetime.datetime.now() - self.datetime_value
+		if delta.days <= 0:
+			if delta.seconds // 3600 >= 1:
+				return f'{delta.seconds // 3600} ساعت قبل'
+			else:
+				return 'لحظاتی قبل'
+		elif delta.days // 365 >= 1:
+			return f'{delta.days // 365} سال قبل'
+		elif delta.days // 30 >= 1:
+			return f'{delta.days // 30} ماه قبل'
+		else:
+			return f'{delta.days} روز قبل'
+
 	@staticmethod
 	def jalali_to_gregorian(jy=0, jm=0, jd=0, return_datetime=False, jalali_date: str = None):
 		if jalali_date is not None:

@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf8") as fh:
 
 setuptools.setup(
     name="persian-datetime",
-    version="0.2",
+    version="0.3",
     author="Ali Shekari",
     author_email="alishekari1991@outlook.com",
     description="Persian (jalali) datetime کلاس کار با تاریخ فارسی",
