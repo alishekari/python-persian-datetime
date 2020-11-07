@@ -57,9 +57,9 @@ class Jalali:
 			return f'{delta.days} روز قبل'
 
 	@staticmethod
-	def jalali_to_gregorian(jy=0, jm=0, jd=0, return_datetime=False, jalali_date: str = None):
+	def jalali_to_gregorian(jy=0, jm=0, jd=0, return_datetime=False, jalali_date: str = None, splitter='/') -> datetime.date:
 		if jalali_date is not None:
-			jy, jm, jd = map(int, jalali_date.split("/"))
+			jy, jm, jd = map(int, jalali_date.split(splitter))
 
 		if jy > 979:
 			gy = 1600
