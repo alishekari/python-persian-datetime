@@ -100,3 +100,50 @@ class Jalali:
 		if return_datetime:
 			return datetime.date(gy, gm, gd)
 		return gy, gm, gd
+
+	@staticmethod
+	def is_kabise(jalali_year: int) -> bool:
+		"""
+		check kardane boodane sale kabise
+
+		:param jalali_year: sal be shamsi ex : 1398
+		:return: kabise ast -> True , kabise nist -> False
+		"""
+		d = (jalali_year + 621) % 4
+		if d == 0:
+			return True
+		return False
+
+	@staticmethod
+	def number_of_days_of_jalali_month(jalali_year: int, jalali_month: int):
+		if 1 <= jalali_month <= 6:
+			return 31
+		if 7 <= jalali_month <= 11:
+			return 30
+		if jalali_month == 12:
+			if Jalali.is_kabise(jalali_year=jalali_year):
+				return 30
+			else:
+				return 29
+		return False
+
+	@staticmethod
+	def first_daY_of_jalali_month(jalali_year: int, jalali_month: int) -> datetime.date:
+		"""
+		:param jalali_year: year in jalali => 1398
+		:param jalali_month: month in jalali -> 5
+		:return: gregorian date for first day of a specific jalali month
+		"""
+		return Jalali.jalali_to_gregorian(jy=jalali_year, jm=jalali_month, jd=1, return_datetime=True)
+
+	@staticmethod
+	def last_daY_of_jalali_month(jalali_year: int, jalali_month: int) -> datetime.date:
+		"""
+		:param jalali_year: year in jalali => 1398
+		:param jalali_month: month in jalali -> 5
+		:return: gregorian date for last day of a specific jalali month
+		"""
+		return Jalali.jalali_to_gregorian(jy=jalali_year, jm=jalali_month,
+		                                  jd=Jalali.number_of_days_of_jalali_month(jalali_year=jalali_year,
+		                                                                           jalali_month=jalali_month),
+		                                  return_datetime=True)
