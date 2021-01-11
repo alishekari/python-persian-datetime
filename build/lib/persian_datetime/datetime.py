@@ -128,7 +128,7 @@ class Jalali:
 		return False
 
 	@staticmethod
-	def first_daY_of_jalali_month(jalali_year: int, jalali_month: int) -> datetime.date:
+	def first_day_of_jalali_month(jalali_year: int, jalali_month: int) -> datetime.date:
 		"""
 		:param jalali_year: year in jalali => 1398
 		:param jalali_month: month in jalali -> 5
@@ -137,7 +137,7 @@ class Jalali:
 		return Jalali.jalali_to_gregorian(jy=jalali_year, jm=jalali_month, jd=1, return_datetime=True)
 
 	@staticmethod
-	def last_daY_of_jalali_month(jalali_year: int, jalali_month: int) -> datetime.date:
+	def last_day_of_jalali_month(jalali_year: int, jalali_month: int) -> datetime.date:
 		"""
 		:param jalali_year: year in jalali => 1398
 		:param jalali_month: month in jalali -> 5
@@ -147,3 +147,13 @@ class Jalali:
 		                                  jd=Jalali.number_of_days_of_jalali_month(jalali_year=jalali_year,
 		                                                                           jalali_month=jalali_month),
 		                                  return_datetime=True)
+
+	@staticmethod
+	def first_day_of_this_jalali_month() -> datetime.date:
+		jy, jm, jd = Jalali(datetime_value=datetime.datetime.today()).gregorian_to_jalali()
+		return Jalali.first_day_of_jalali_month(jalali_year=jy, jalali_month=jm)
+
+	@staticmethod
+	def last_day_of_this_jalali_month() -> datetime.date:
+		jy, jm, jd = Jalali(datetime_value=datetime.datetime.today()).gregorian_to_jalali()
+		return Jalali.last_day_of_jalali_month(jalali_year=jy, jalali_month=jm)
