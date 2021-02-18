@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: persian-datetime
-Version: 0.6
+Version: 0.8
 Summary: Persian (jalali) datetime کلاس کار با تاریخ فارسی
 Home-page: https://github.com/alishekari/python-persian-datetime
 Author: Ali Shekari
@@ -11,6 +11,7 @@ Description: تبدیل تاریخ میلادی به فارسی و بالعکس
         تفاوت تاریخ به روز و ماه و سال به فارسی
         چک کردن سال کبیسه
         روز اول و آخر ماه شمسی به میلادی
+        روز اول و آخر هفته شمسی به میلادی
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3.9
 Classifier: License :: OSI Approved :: MIT License

@@ -56,6 +56,14 @@ class Jalali:
 		else:
 			return f'{delta.days} روز قبل'
 
+	def first_day_of_jalali_week(self) -> datetime.date:
+		jy, jm, jd = self.gregorian_to_jalali()
+		return Jalali.first_daY_of_jalali_week(jalali_year=jy, jalali_month=jm, jalali_day=jd)
+
+	def last_day_of_jalali_week(self) -> datetime.date:
+		jy, jm, jd = self.gregorian_to_jalali()
+		return Jalali.last_daY_of_jalali_week(jalali_year=jy, jalali_month=jm, jalali_day=jd)
+
 	@staticmethod
 	def jalali_to_gregorian(jy=0, jm=0, jd=0, return_datetime=False, jalali_date: str = None, splitter='/') -> datetime.date:
 		if jalali_date is not None:
