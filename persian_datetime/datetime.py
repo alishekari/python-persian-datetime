@@ -56,6 +56,14 @@ class Jalali:
 		else:
 			return f'{delta.days} روز قبل'
 
+	def first_day_of_jalali_week(self) -> datetime.date:
+		jy, jm, jd = self.gregorian_to_jalali()
+		return Jalali.first_daY_of_jalali_week(jalali_year=jy, jalali_month=jm, jalali_day=jd)
+
+	def last_day_of_jalali_week(self) -> datetime.date:
+		jy, jm, jd = self.gregorian_to_jalali()
+		return Jalali.last_daY_of_jalali_week(jalali_year=jy, jalali_month=jm, jalali_day=jd)
+
 	@staticmethod
 	def jalali_to_gregorian(jy=0, jm=0, jd=0, return_datetime=False, jalali_date: str = None, splitter='/') -> datetime.date:
 		if jalali_date is not None:
@@ -157,3 +165,43 @@ class Jalali:
 	def last_day_of_this_jalali_month() -> datetime.date:
 		jy, jm, jd = Jalali(datetime_value=datetime.datetime.today()).gregorian_to_jalali()
 		return Jalali.last_day_of_jalali_month(jalali_year=jy, jalali_month=jm)
+
+	@staticmethod
+	def first_daY_of_jalali_week(jalali_year: int, jalali_month: int, jalali_day: int) -> datetime.date:
+		"""
+		:param jalali_year: year in jalali => 1398
+		:param jalali_month: month in jalali -> 5
+		:param jalali_month: day in jalali -> 3 (shanbe : 1, jome : 7)
+		:return: gregorian date for first day of a specific jalali week
+		"""
+		gregorian_date = Jalali.jalali_to_gregorian(jy=jalali_year, jm=jalali_month, jd=jalali_day, return_datetime=True)
+		if gregorian_date.isoweekday() == 6:
+			return gregorian_date
+		if gregorian_date.isoweekday() == 7:
+			return gregorian_date - datetime.timedelta(days=1)
+		return gregorian_date - datetime.timedelta(days=gregorian_date.isoweekday()+1)
+
+	@staticmethod
+	def last_daY_of_jalali_week(jalali_year: int, jalali_month: int, jalali_day: int) -> datetime.date:
+		"""
+		:param jalali_year: year in jalali => 1398
+		:param jalali_month: month in jalali -> 5
+		:param jalali_month: day in jalali -> 3 (shanbe : 1, jome : 7)
+		:return: gregorian date for last day of a specific jalali week
+		"""
+		gregorian_date = Jalali.jalali_to_gregorian(jy=jalali_year, jm=jalali_month, jd=jalali_day, return_datetime=True)
+		if gregorian_date.isoweekday() == 6:
+			return gregorian_date + datetime.timedelta(days=6)
+		if gregorian_date.isoweekday() == 7:
+			return gregorian_date + datetime.timedelta(days=5)
+		return gregorian_date + datetime.timedelta(days=5-gregorian_date.isoweekday())
+
+	@staticmethod
+	def first_day_of_this_jalali_week() -> datetime.date:
+		jy, jm, jd = Jalali(datetime_value=datetime.datetime.today()).gregorian_to_jalali()
+		return Jalali.first_daY_of_jalali_week(jalali_year=jy, jalali_month=jm, jalali_day=jd)
+
+	@staticmethod
+	def last_day_of_this_jalali_week() -> datetime.date:
+		jy, jm, jd = Jalali(datetime_value=datetime.datetime.today()).gregorian_to_jalali()
+		return Jalali.last_daY_of_jalali_week(jalali_year=jy, jalali_month=jm, jalali_day=jd)
