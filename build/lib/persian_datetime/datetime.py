@@ -21,7 +21,7 @@ class Jalali:
 	class JalaliSerializer(serializers.BaseSerializer):
 		def to_representation(self, instance):
 			return {
-				'date': instance.datetime_value.strftime("%Y/%m/%d"),
+				'date': instance.datetime_value.strftime("%Y-%m-%d"),
 				'jalali_date': instance.gregorian_to_jalali(return_str=True),
 				'jalali_day': instance.jalali_weekday,
 			}
