@@ -1,3 +1,4 @@
+LICENSE
 README.md
 setup.py
 persian_datetime/__init__.py

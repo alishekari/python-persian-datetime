@@ -1,9 +1,34 @@
 import datetime
+from enum import Enum
+
+from rest_framework import serializers
 
 
 class Jalali:
 	def __init__(self, datetime_value: datetime.datetime):
 		self.datetime_value = datetime_value
+
+	class WeekDays(Enum):
+		Saturday = 'شنبه',
+		Sunday = 'یکشنبه',
+		Monday = 'دوشنبه',
+		Tuesday = 'سه شنبه',
+		Wednesday = 'چهارشنبه',
+		Thursday = 'پنجشنبه',
+		Friday = 'جمعه',
+
+
+	class JalaliSerializer(serializers.BaseSerializer):
+		def to_representation(self, instance):
+			return {
+				'date': instance.datetime_value.strftime("%Y/%m/%d"),
+				'jalali_date': instance.gregorian_to_jalali(return_str=True),
+				'jalali_day': instance.jalali_weekday,
+			}
+
+	@property
+	def jalali_weekday(self):
+		return Jalali.WeekDays[self.datetime_value.strftime('%A')].value[0]
 
 	def gregorian_to_jalali(self, return_str=False, splitter='/'):
 		gy, gm, gd = self.datetime_value.year, self.datetime_value.month, self.datetime_value.day
