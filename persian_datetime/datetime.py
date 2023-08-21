@@ -2,7 +2,7 @@ import datetime
 from enum import Enum
 
 from rest_framework import serializers
-
+from django.utils import timezone
 
 class Jalali:
     def __init__(self, datetime_value: datetime.datetime):
@@ -105,7 +105,7 @@ class Jalali:
         mohasebeye ekhtelafe zamanie hal ba datetime_value va khorooji ba matne farsi
         :return:
         """
-        delta = datetime.datetime.now() - self.datetime_value
+        delta = timezone.now() - self.datetime_value
         if delta.days <= 0:
             if delta.seconds // 3600 >= 1:
                 return f'{delta.seconds // 3600} ساعت قبل'
