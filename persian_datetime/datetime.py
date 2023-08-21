@@ -4,6 +4,7 @@ from enum import Enum
 from rest_framework import serializers
 from django.utils import timezone
 
+
 class Jalali:
     def __init__(self, datetime_value: datetime.datetime):
         self.datetime_value = datetime_value
