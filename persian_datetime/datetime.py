@@ -6,7 +6,7 @@ from django.utils import timezone
 
 
 class Jalali:
-    def __init__(self, datetime_value: datetime.datetime):
+    def __init__(self, datetime_value: datetime.datetime | datetime.date):
         self.datetime_value = datetime_value
 
     class WeekDays(Enum):
@@ -68,7 +68,12 @@ class Jalali:
         else:  # mehr ta bahman
             return self.datetime_value + datetime.timedelta(days=30)
 
-    def gregorian_to_jalali(self, return_str=False, splitter='/'):
+    def gregorian_to_jalali(self, return_str=False, splitter='/', return_time_str=False, time_str_format='%H:%M'):
+
+        time_str = ""
+        if return_time_str:
+            time_str = self.datetime_value.strftime(time_str_format)
+
         gy, gm, gd = self.datetime_value.year, self.datetime_value.month, self.datetime_value.day
 
         g_d_m = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]
@@ -98,7 +103,7 @@ class Jalali:
             jm = 7 + int((days - 186) / 30)
             jd = 1 + ((days - 186) % 30)
         if return_str:
-            return f'{jy}{splitter}{jm:02d}{splitter}{jd:02d}'
+            return f'{jy}{splitter}{jm:02d}{splitter}{jd:02d} {time_str}'.strip()
         return jy, jm, jd
 
     def date_diff_to_str_persian(self):
